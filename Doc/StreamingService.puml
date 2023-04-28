@@ -1,0 +1,110 @@
+@startuml
+!pragma layout smetana
+'https://plantuml.com/class-diagram
+
+class Main{
+- Menu menu
+- TextUI textUI
++ void main()
++ User Menu()
+
+}
+
+
+class Menu{
+- FileIO fileIO
+- TextUI textUI
++ void runMenu()
++ user logIn()
++ void logOut()
+- user signUp()
++ void mainMenu()
++ void searchByTitle()
++ void searchByGenre()
++ void viewWatched()
++ void viewSaved()
+}
+
+class UserHandler{
++ readUserData(String username, String password)
+- Movies movie(String[] m)
+- Series series(String[] s)
++ Series readSeriesData()
++ Movie readMovieData ()
++ void saveUserData(User u)
+}
+
+
+class FileIO {
+-Scanner scan
+-File file
++ String loadUserData(String username, String password)
++ void saveUserData(User u)
++ Series readSeriesData()
++ Movies readMovieData()
+
+}
+
+class TextUI {
+- Scanner scan
++ String getInput(String msg)
++ String getInput(String msg, <> options)
+}
+
+class User {
+- String username
+- String password
+- int ID
+- ArrayList<Integer> savedMovies
+- ArrayList<Integer> watchedMovies
++ User(String username, String password, int ID, <>watchedMovies, <>savedMovies)
++ String getUsername()
++ String getPassword()
++ int getID()
++ void setWatchedMovie()
++ void setSavedMovie()
+}
+
+class Movies {
++ String[] genre
++ int year
++ int rating
+}
+
+class Series {
++ String[] genre
++ int year
++ int rating
+
+}
+
+abstract Content {
+- String title
+- ArrayList<String> genre
+- int rating
++ String getTitle()
++ ArrayList getGenres()
++ int getRating()
++ Content(String title, ArrayList genres, int rating)
+}
+
+
+Main <-- Menu
+Main <-- TextUI
+Menu <-- UserHandler
+Menu <-- User
+Menu <-- Content
+Menu <-- TextUI
+User <-- UserHandler
+UserHandler <-- FileIO
+Content <-- Movies
+Content <-- Series
+
+object movies.txt {
+}
+object series.txt {
+}
+object users.txt {
+}
+
+@enduml
